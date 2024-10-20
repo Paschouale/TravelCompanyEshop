@@ -10,6 +10,4 @@ public class Customer {
     private String address;
     private Nationality nationality;
     private Category category;
-
-
 }
