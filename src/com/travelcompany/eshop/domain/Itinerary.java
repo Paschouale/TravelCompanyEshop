@@ -43,4 +43,16 @@ public class Itinerary {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "Itinerary{" +
+                "id=" + id +
+                ", departureAirportCode=" + departureAirportCode +
+                ", destinationAirportCode=" + destinationAirportCode +
+                ", departureDate='" + departureDate + '\'' +
+                ", airline=" + airline +
+                ", basicPrice=" + basicPrice +
+                '}';
+    }
 }
