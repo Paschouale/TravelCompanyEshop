@@ -1,7 +1,6 @@
 package com.travelcompany.eshop.domain;
 
 import com.travelcompany.eshop.enumeration.PaymentMethod;
-import com.travelcompany.eshop.services.TravelCompanyServicesImpl;
 
 public class Ticket {
     private Long id;
@@ -10,14 +9,14 @@ public class Ticket {
     private PaymentMethod paymentMethod;
     private double paymentAmount;
 
-    public Ticket(Long id, Customer customer, Itinerary itinerary, PaymentMethod paymentMethod) {
-        this.id = id;
+    public Ticket(Customer customer, Itinerary itinerary, PaymentMethod paymentMethod) {
         this.customer = customer;
         this.itinerary = itinerary;
         this.paymentMethod = paymentMethod;
     }
 
     public Long getId() {
+
         return id;
     }
 
@@ -61,8 +60,8 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "id=" + id +
-                ", customer=" + customer +
-                ", itinerary=" + itinerary +
+                ", customer id=" + customer.getId() +
+                ", itinerary id=" + itinerary.getId() +
                 ", paymentMethod=" + paymentMethod +
                 ", paymentAmount=" + paymentAmount +
                 '}';

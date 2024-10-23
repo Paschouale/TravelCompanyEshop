@@ -1,18 +1,22 @@
-package com.travelcompany.eshop.services;
+package com.travelcompany.eshop.service;
 
 import com.travelcompany.eshop.domain.*;
 import com.travelcompany.eshop.enumeration.Category;
-import com.travelcompany.eshop.enumeration.Nationality;
 import com.travelcompany.eshop.enumeration.PaymentMethod;
 
-public class TravelCompanyServicesImpl implements TravelCompanyServices {
+import java.util.ArrayList;
+import java.util.List;
 
+public class TicketServiceImpl implements TicketService {
+
+    private List<Ticket> ticketList = new ArrayList<>();
 
     @Override
-    public Ticket selectItinerary(Customer customer, Itinerary itinerary) {
-        Ticket ticket = new Ticket(1L, customer, itinerary, PaymentMethod.CREDIT_CARD);
+    public void buyTicket(Customer customer, Itinerary itinerary, PaymentMethod paymentMethod) {
+        Ticket ticket = new Ticket(customer, itinerary, paymentMethod);
         ticket.setPaymentAmount(ticketPrice(ticket));
-        return ticket;
+        ticket.setId(this.ticketList.size() + 1L);
+        this.ticketList.add(ticket);
     }
 
     @Override
@@ -27,5 +31,10 @@ public class TravelCompanyServicesImpl implements TravelCompanyServices {
             discount += 0.1;
         double ticketPrice = basicPrice + (basicPrice*surcharge) - (basicPrice*discount);
         return ticketPrice;
+    }
+
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
     }
 }
