@@ -1,6 +1,7 @@
 package com.travelcompany.eshop;
 
 import com.travelcompany.eshop.domain.*;
+import com.travelcompany.eshop.enumeration.AirportCode;
 import com.travelcompany.eshop.enumeration.PaymentMethod;
 import com.travelcompany.eshop.service.*;
 
@@ -29,18 +30,33 @@ public class TravelCompanyEshop {
         ticketService.buyTicket(customers.get(0), itineraries.get(0), PaymentMethod.CASH);
         ticketService.buyTicket(customers.get(2), itineraries.get(1), PaymentMethod.CREDIT_CARD);
         ticketService.buyTicket(customers.get(3), itineraries.get(2), PaymentMethod.CREDIT_CARD);
-        ticketService.buyTicket(customers.get(2), itineraries.get(3), PaymentMethod.CASH);
+        ticketService.buyTicket(customers.get(0), itineraries.get(3), PaymentMethod.CASH);
         ticketService.buyTicket(customers.get(5), itineraries.get(4), PaymentMethod.CASH);
         ticketService.buyTicket(customers.get(3), itineraries.get(6), PaymentMethod.CREDIT_CARD);
         List<Ticket> ticketList = ticketService.getTicketList();
 
-        totalTicketsPerCustomer(customers, ticketList);
 
+        // Εκτύπωση με τα συνολικά εισιτήρια και τα κόστη για κάθε πελάτη
+//        totalTicketsPerCustomer(customers, ticketList);
+
+        // Λίστα με τα δρομολόγια από τις αναχωρήσεις και για τους προορισμούς.
+//        itinerariesPerAirportCode(itineraries, AirportCode.ATH);
+//        itinerariesPerAirportCode(itineraries, AirportCode.MEX);
+//        itinerariesPerAirportCode(itineraries, AirportCode.AMS);
+//        itinerariesPerAirportCode(itineraries, AirportCode.PAR);
+//        itinerariesPerAirportCode(itineraries, AirportCode.LON);
+//        itinerariesPerAirportCode(itineraries, AirportCode.DUB);
+//        itinerariesPerAirportCode(itineraries, AirportCode.FRA);
+
+        // Ο πελάτης με τα περισσότερα εισιτήρια και ο πελάτης με τα περισσότερα έξοδα
+//        mostTicketAndCostCustomer(customers, ticketList);
+
+
+        // Οι πελάτες χωρίς εισιτήρια
+//        noTicketCustomers(ticketList, customers);
     }
 
     public static void totalTicketsPerCustomer(List<Customer> customers, List<Ticket> ticketList) {
-
-
         for (Customer customer : customers) {
             int totalTickets = 0;
             double totalExpenses = 0.0;
@@ -55,9 +71,32 @@ public class TravelCompanyEshop {
         }
     }
 
-    public static void  mostTicketCustomer(List<Customer> customers, List<Ticket> ticketList) {
+    public static void itinerariesPerAirportCode(List<Itinerary> itineraryList, AirportCode airportCode){
+        int count = 0;
+        System.out.println("List with departures from: " + airportCode);
+        for (Itinerary itinerary: itineraryList){
+            if (airportCode == itinerary.getDepartureAirportCode()){
+                System.out.println(itinerary);
+                count ++;
+            }
+        }
+        if (count == 0) System.out.println("There are no Departures");
+        count = 0;
+        System.out.println("List with destinations for: " + airportCode);
+        for (Itinerary itinerary: itineraryList){
+            if (airportCode == itinerary.getDestinationAirportCode()){
+                System.out.println(itinerary);
+                count++;
+            }
+        }
+        if (count == 0) System.out.println("There are no Destinations");
+    }
+
+    public static void  mostTicketAndCostCustomer(List<Customer> customers, List<Ticket> ticketList) {
         Customer mostTicketsCustomer = null;
+        Customer mostExpensesCustomer = null;
         int mostTickets = 0;
+        double mostExpenses = 0.0;
 
         for (Customer customer : customers) {
             int tempTickets = 0;
@@ -72,7 +111,42 @@ public class TravelCompanyEshop {
             }
         }
 
-        System.out.println("The customer with the most tickets is: " + mostTicketsCustomer);
+        for (Customer customer : customers) {
+            double tempExpenses = 0.0;
+            for (Ticket ticket : ticketList) {
+                if (customer.getId() == ticket.getCustomer().getId()) {
+                    tempExpenses = tempExpenses + ticket.getPaymentAmount();
+                }
+            }
+            if (tempExpenses > mostExpenses) {
+                mostExpenses = tempExpenses;
+                mostExpensesCustomer = customer;
+            }
+        }
+
+        System.out.println("The customer with the most tickets is: " + mostTicketsCustomer.getName() +
+                " with a total of " + mostTickets + " tickets");
+        System.out.println("The customer with the most expenses is: " + mostExpensesCustomer.getName()
+                + " with a total of " + mostExpenses + " euros");
+    }
+
+    public static void noTicketCustomers (List<Ticket> ticketList, List<Customer> customerList){
+        List<Customer> customersWithNoTickets = new ArrayList<>();
+        for (Customer customer: customerList){
+            boolean hasTicket = false;
+            for (Ticket ticket : ticketList){
+                if ( customer.getId() == ticket.getCustomer().getId() ){
+                    hasTicket = true;
+                }
+            }
+            if (!hasTicket){
+                customersWithNoTickets.add(customer);
+            }
+        }
+        System.out.println("The Customers with no tickets are: ");
+        for (Customer customer: customersWithNoTickets){
+            System.out.println(customer);
+        }
     }
 
 }

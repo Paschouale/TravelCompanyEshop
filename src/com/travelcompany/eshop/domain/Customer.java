@@ -49,6 +49,6 @@ public abstract class Customer {
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", nationality=" + nationality +
-                '}';
+                ',';
     }
 }
