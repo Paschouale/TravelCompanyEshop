@@ -1,62 +1,14 @@
 package com.travelcompany.eshop.service;
 
-import com.travelcompany.eshop.domain.Customer;
-import com.travelcompany.eshop.domain.CustomerBusiness;
-import com.travelcompany.eshop.domain.CustomerIndividual;
 import com.travelcompany.eshop.domain.Itinerary;
 import com.travelcompany.eshop.enumeration.Airline;
 import com.travelcompany.eshop.enumeration.AirportCode;
-import com.travelcompany.eshop.enumeration.Nationality;
-import com.travelcompany.eshop.exception.CustomerEmailException;
 import com.travelcompany.eshop.exception.ItineraryAirportCodeException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TravelCompanyServiceHandlers {
-
-
-    public static List<Customer> loadCustomers() {
-
-        List<Customer> customers = new ArrayList<>();
-        try{
-        customers.add(new CustomerBusiness(1L, "Dimitrios Paschalis", "d.paschalis@cosmote-evalue.gr", "Athens", Nationality.GREEK));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-        customers.add(new CustomerIndividual(2L, "Yiota Plati", "p.plati@cosmote-evalue.gr", "Athens", Nationality.FRENCH));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-        customers.add(new CustomerBusiness(3L, "Dimitrios Zachos", "d.zachos@ote.gr", "Milan", Nationality.ITALIAN));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try {
-            customers.add(new CustomerIndividual(4L, "Theodora Vasiladioti", "t.vasiladioti@travelcompany.com", "Thessaloniki", Nationality.GREEK));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-        customers.add(new CustomerBusiness(5L, "Spyros Farantos", "s.farantos@cosmote-evalue.gr", "Lyon", Nationality.FRENCH));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-        customers.add(new CustomerIndividual(6L, "Michael Vazakopoulos", "m.vazakopoulos@cosmote-evalue.gr", "Rome", Nationality.ITALIAN));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        try{
-        customers.add(new CustomerBusiness(7L, "Thomas Karavasilis", "t.karavasilis@ote.gr", "Athens", Nationality.GREEK));
-        } catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
-        return customers;
-    }
-
+public class ItineraryServiceHandler {
     public static List<Itinerary> loadItineraries() {
         //Simulate file loading
         List<Itinerary> itineraries = new ArrayList<>();
@@ -106,5 +58,28 @@ public class TravelCompanyServiceHandlers {
             System.out.println(e.getMessage());
         }
         return itineraries;
+    }
+
+    public static void itinerariesPerAirportCode(List<Itinerary> itineraryList, AirportCode airportCode){
+        int count = 0;
+        System.out.println("List with departures from: " + airportCode);
+        for (Itinerary itinerary: itineraryList){
+            if (airportCode == itinerary.getDepartureAirportCode()){
+                System.out.println(itinerary);
+                count ++;
+            }
+        }
+        if (count == 0) System.out.println("There are no Departures");
+        System.out.println();
+        count = 0;
+        System.out.println("List with destinations for: " + airportCode);
+        for (Itinerary itinerary: itineraryList){
+            if (airportCode == itinerary.getDestinationAirportCode()){
+                System.out.println(itinerary);
+                count++;
+            }
+        }
+        if (count == 0) System.out.println("There are no Destinations");
+        System.out.println();
     }
 }
