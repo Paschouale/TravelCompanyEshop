@@ -3,6 +3,7 @@ package com.travelcompany.eshop.service;
 import com.travelcompany.eshop.domain.*;
 import com.travelcompany.eshop.enumeration.Category;
 import com.travelcompany.eshop.enumeration.PaymentMethod;
+import com.travelcompany.eshop.exception.TicketIssuingException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,26 @@ public class TicketServiceImpl implements TicketService {
     private List<Ticket> ticketList = new ArrayList<>();
 
     @Override
-    public void buyTicket(Customer customer, Itinerary itinerary, PaymentMethod paymentMethod) {
+    public void buyTicket(Customer customer, Itinerary itinerary, PaymentMethod paymentMethod,
+                          List<Customer> customerList, List<Itinerary> itineraryList) {
+        boolean customerExists = false;
+        boolean itineraryExists = false;
+        for (Customer customer1 : customerList){
+            if (customer.getId() == customer1.getId()){
+                customerExists = true;
+            }
+        }
+        if (!customerExists){
+            throw new TicketIssuingException("Customer doesn't exist");
+        }
+        for (Itinerary itinerary1 : itineraryList){
+            if (itinerary.getId() == itinerary1.getId()){
+                itineraryExists = true;
+            }
+        }
+        if (!itineraryExists){
+            throw new TicketIssuingException("Itinerary doesn't exist");
+        }
         Ticket ticket = new Ticket(customer, itinerary, paymentMethod);
         ticket.setPaymentAmount(ticketPrice(ticket));
         ticket.setId(this.ticketList.size() + 1L);
