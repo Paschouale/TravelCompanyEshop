@@ -23,7 +23,7 @@ public class TicketServiceImpl implements TicketService {
             }
         }
         if (!customerExists){
-            throw new TicketIssuingException("Customer doesn't exist");
+            throw new TicketIssuingException("Customer with id: " + customer.getId() + " doesn't exist");
         }
         for (Itinerary itinerary1 : itineraryList){
             if (itinerary.getId() == itinerary1.getId()){
@@ -31,7 +31,7 @@ public class TicketServiceImpl implements TicketService {
             }
         }
         if (!itineraryExists){
-            throw new TicketIssuingException("Itinerary doesn't exist");
+            throw new TicketIssuingException("Itinerary with id: " + itinerary.getId() + " doesn't exist");
         }
         Ticket ticket = new Ticket(customer, itinerary, paymentMethod);
         ticket.setPaymentAmount(ticketPrice(ticket));

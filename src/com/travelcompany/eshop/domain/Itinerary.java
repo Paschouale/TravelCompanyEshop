@@ -14,11 +14,11 @@ public class Itinerary {
 
     public Itinerary(Long id, AirportCode departureAirportCode, AirportCode destinationAirportCode, String departureDate, Airline airline, double basicPrice) {
         if (departureAirportCode != AirportCode.ATH){
-            throw new ItineraryAirportCodeException("The Departure Airport " + departureAirportCode + " doesn't have a flight");
+            throw new ItineraryAirportCodeException("For Itinerary with id: " + id + " the Departure Airport " + departureAirportCode + " doesn't have a flight");
         }
         if (!(destinationAirportCode == AirportCode.AMS || destinationAirportCode == AirportCode.MEX || destinationAirportCode == AirportCode.LON
                 || destinationAirportCode == AirportCode.FRA || destinationAirportCode == AirportCode.DUB || destinationAirportCode == AirportCode.PAR)){
-            throw new ItineraryAirportCodeException("The Destination Airport " + destinationAirportCode + " doesn't have a flight");
+            throw new ItineraryAirportCodeException("For Itinerary with id: " + id + " the Destination Airport " + destinationAirportCode + " doesn't have a flight");
         }
         this.id = id;
         this.departureAirportCode = departureAirportCode;

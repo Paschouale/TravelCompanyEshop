@@ -23,12 +23,6 @@ public class TravelCompanyEshop {
 
         // Καταχώρηση πελατών στη λίστα
         customerService.addAll(TravelCompanyServiceHandlers.loadCustomers());
-        // Καταχώρηση ενός πελάτη στη λίστα
-        try {
-            customerService.add(new CustomerBusiness(8L, "John Doe", "john@travelcompany.com", "Athens", Nationality.ITALIAN));
-        }catch (CustomerEmailException e){
-            System.out.println(e.getMessage());
-        }
         List<Customer> customers = customerService.getCustomerList();
 
         // Καταχώρηση δρομολογίων στη λίστα
@@ -76,12 +70,18 @@ public class TravelCompanyEshop {
         }catch (TicketIssuingException | IndexOutOfBoundsException e){
             System.out.println(e.getMessage());
         }
+        try {
+            ticketService.buyTicket(customers.get(7), itineraries.get(6), PaymentMethod.CREDIT_CARD, customers, itineraries);
+        }catch (TicketIssuingException | IndexOutOfBoundsException e){
+            System.out.println(e.getMessage());
+        }
 
         List<Ticket> ticketList = ticketService.getTicketList();
         System.out.println();
         for (Ticket ticket : ticketList){
             System.out.println(ticket);
         }
+
         // Εκτύπωση με τα συνολικά εισιτήρια και τα κόστη για κάθε πελάτη
 //        totalTicketsPerCustomer(customers, ticketList);
 

@@ -2,6 +2,7 @@ package com.travelcompany.eshop.domain;
 
 import com.travelcompany.eshop.enumeration.Category;
 import com.travelcompany.eshop.enumeration.Nationality;
+import com.travelcompany.eshop.exception.CustomerEmailException;
 
 public abstract class Customer {
 
@@ -12,6 +13,9 @@ public abstract class Customer {
     private Nationality nationality;
 
     public Customer(Long id, String name, String email, String address, Nationality nationality) {
+        if ( email.endsWith("@travelcompany.com") ){
+            throw new CustomerEmailException("The email for the customer with id: " + id + " is invalid");
+        }
         this.id = id;
         this.name = name;
         this.email = email;

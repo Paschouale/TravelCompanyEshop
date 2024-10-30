@@ -11,26 +11,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void add(Customer customer) {
-        if (customer.getEmail().endsWith("travelcompany.com")) {
-            throw new CustomerEmailException("You've entered an invalid email address");
-        }
         customers.add(customer);
 
     }
 
     @Override
     public void addAll(List<Customer> customers) {
-        for (Customer customer : customers) {
-            try {
-                if (customer.getEmail().endsWith("travelcompany.com")) {
-                    throw new CustomerEmailException("You've entered an invalid email address");
-                }
-                this.customers.add(customer);
-            } catch (CustomerEmailException e) {
-                System.out.println("The customer with ID: " + customer.getId() + " has an invalid address: " + customer.getEmail());
-            }
-//        this.customers.addAll(customers);
-        }
+        this.customers.addAll(customers);
     }
 
         @Override
