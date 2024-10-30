@@ -2,7 +2,9 @@ package com.travelcompany.eshop;
 
 import com.travelcompany.eshop.domain.*;
 import com.travelcompany.eshop.enumeration.AirportCode;
+import com.travelcompany.eshop.enumeration.Nationality;
 import com.travelcompany.eshop.enumeration.PaymentMethod;
+import com.travelcompany.eshop.exception.CustomerEmailException;
 import com.travelcompany.eshop.service.*;
 
 import java.util.ArrayList;
@@ -19,6 +21,12 @@ public class TravelCompanyEshop {
 
         // Καταχώρηση πελατών στη λίστα
         customerService.addAll(TravelCompanyServiceHandlers.loadCustomers());
+        // Καταχώρηση ενός πελάτη στη λίστα
+        try {
+            customerService.add(new CustomerBusiness(8L, "John Doe", "john@travelcompany.com", "Athens", Nationality.ITALIAN));
+        }catch (CustomerEmailException e){
+            System.out.println(e.getMessage());
+        }
         List<Customer> customers = customerService.getCustomerList();
 
         // Καταχώρηση δρομολογίων στη λίστα
@@ -40,7 +48,7 @@ public class TravelCompanyEshop {
 //        totalTicketsPerCustomer(customers, ticketList);
 
         // Λίστα με τα δρομολόγια από τις αναχωρήσεις και για τους προορισμούς.
-//        itinerariesPerAirportCode(itineraries, AirportCode.ATH);
+//       itinerariesPerAirportCode(itineraries, AirportCode.ATH);
 //        itinerariesPerAirportCode(itineraries, AirportCode.MEX);
 //        itinerariesPerAirportCode(itineraries, AirportCode.AMS);
 //        itinerariesPerAirportCode(itineraries, AirportCode.PAR);

@@ -20,7 +20,7 @@ public class TravelCompanyServiceHandlers {
                 new CustomerBusiness(1L, "Dimitrios Paschalis", "d.paschalis@cosmote-evalue.gr", "Athens", Nationality.GREEK),
                 new CustomerIndividual(2L, "Yiota Plati", "p.plati@cosmote-evalue.gr", "Athens", Nationality.FRENCH),
                 new CustomerBusiness(3L, "Dimitrios Zachos", "d.zachos@ote.gr", "Milan", Nationality.ITALIAN),
-                new CustomerIndividual(4L, "Theodora Vasiladioti", "t.vasiladioti@cosmote-evalue.gr", "Thessaloniki", Nationality.GREEK),
+                new CustomerIndividual(4L, "Theodora Vasiladioti", "t.vasiladioti@travelcompany.com", "Thessaloniki", Nationality.GREEK),
                 new CustomerBusiness(5L, "Spyros Farantos", "s.farantos@cosmote-evalue.gr", "Lyon", Nationality.FRENCH),
                 new CustomerIndividual(6L, "Michael Vazakopoulos", "m.vazakopoulos@cosmote-evalue.gr", "Rome", Nationality.ITALIAN),
                 new CustomerBusiness(7L, "Thomas Karavasilis", "t.karavasilis@ote.gr", "Athens", Nationality.GREEK));
