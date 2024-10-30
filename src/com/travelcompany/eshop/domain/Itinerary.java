@@ -2,6 +2,7 @@ package com.travelcompany.eshop.domain;
 
 import com.travelcompany.eshop.enumeration.Airline;
 import com.travelcompany.eshop.enumeration.AirportCode;
+import com.travelcompany.eshop.exception.ItineraryAirportCodeException;
 
 public class Itinerary {
     private Long id;
@@ -12,6 +13,13 @@ public class Itinerary {
     private double basicPrice;
 
     public Itinerary(Long id, AirportCode departureAirportCode, AirportCode destinationAirportCode, String departureDate, Airline airline, double basicPrice) {
+        if (departureAirportCode != AirportCode.ATH){
+            throw new ItineraryAirportCodeException("The Departure Airport " + departureAirportCode + " doesn't have a flight");
+        }
+        if (!(destinationAirportCode == AirportCode.AMS || destinationAirportCode == AirportCode.MEX || destinationAirportCode == AirportCode.LON
+                || destinationAirportCode == AirportCode.FRA || destinationAirportCode == AirportCode.DUB || destinationAirportCode == AirportCode.PAR)){
+            throw new ItineraryAirportCodeException("The Destination Airport " + destinationAirportCode + " doesn't have a flight");
+        }
         this.id = id;
         this.departureAirportCode = departureAirportCode;
         this.destinationAirportCode = destinationAirportCode;

@@ -7,11 +7,12 @@ import com.travelcompany.eshop.domain.Itinerary;
 import com.travelcompany.eshop.enumeration.Airline;
 import com.travelcompany.eshop.enumeration.AirportCode;
 import com.travelcompany.eshop.enumeration.Nationality;
+import com.travelcompany.eshop.exception.ItineraryAirportCodeException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TravelCompanyServiceHandlers {
-
 
 
     public static List<Customer> loadCustomers() {
@@ -27,16 +28,54 @@ public class TravelCompanyServiceHandlers {
         return customers;
     }
 
-    public static List<Itinerary> loadItineraries(){
+    public static List<Itinerary> loadItineraries() {
         //Simulate file loading
-        List<Itinerary> itineraries = List.of(
-                new Itinerary(1L, AirportCode.ATH, AirportCode.PAR, "22/02/2022 13:35", Airline.SKYLINES, 300),
-                new Itinerary(2L, AirportCode.ATH, AirportCode.LON, "22/02/2022 13:40", Airline.SKYLINES, 420),
-                new Itinerary(3L, AirportCode.ATH, AirportCode.AMS, "22/02/2022 13:45", Airline.SKYLINES, 280),
-                new Itinerary(4L, AirportCode.ATH, AirportCode.FRA, "22/02/2022 14:20", Airline.SKYLINES, 310),
-                new Itinerary(5L, AirportCode.ATH, AirportCode.DUB, "22/02/2022 14:35", Airline.SKYLINES, 880),
-                new Itinerary(6L, AirportCode.ATH, AirportCode.DUB, "22/02/2022 14:55", Airline.SKYLINES, 770),
-                new Itinerary(7L, AirportCode.ATH, AirportCode.MEX, "22/02/2022 16:00", Airline.SKYLINES, 1020));
+        List<Itinerary> itineraries = new ArrayList<>();
+        try{
+        itineraries.add(new Itinerary(1L, AirportCode.ATH, AirportCode.PAR, "22/02/2022 13:35", Airline.SKYLINES, 300));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+        itineraries.add(new Itinerary(2L, AirportCode.ATH, AirportCode.LON, "22/02/2022 13:40", Airline.SKYLINES, 420));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try {
+            itineraries.add(new Itinerary(3L, AirportCode.ATH, AirportCode.AMS, "22/02/2022 13:45", Airline.SKYLINES, 280));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+        itineraries.add(new Itinerary(4L, AirportCode.ATH, AirportCode.FRA, "22/02/2022 14:20", Airline.SKYLINES, 310));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+        itineraries.add(new Itinerary(5L, AirportCode.ATH, AirportCode.DUB, "22/02/2022 14:35", Airline.SKYLINES, 880));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+        itineraries.add(new Itinerary(6L, AirportCode.ATH, AirportCode.DUB, "22/02/2022 14:55", Airline.SKYLINES, 770));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+        itineraries.add(new Itinerary(7L, AirportCode.ATH, AirportCode.MEX, "22/02/2022 16:00", Airline.SKYLINES, 1020));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+            itineraries.add(new Itinerary(8L, AirportCode.MEX, AirportCode.MEX, "22/02/2022 16:00", Airline.SKYLINES, 1020));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
+        try{
+            itineraries.add(new Itinerary(8L, AirportCode.ATH, AirportCode.SKG, "22/02/2022 16:00", Airline.SKYLINES, 1020));
+        }catch (ItineraryAirportCodeException e){
+            System.out.println(e.getMessage());
+        }
         return itineraries;
     }
 }
